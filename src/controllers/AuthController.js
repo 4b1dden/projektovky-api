@@ -4,6 +4,7 @@ const HandlersService = require("../services/HandlersService");
 const jwt = require('jsonwebtoken');
 const User = require("../models/User");
 const Session = require("../models/Session");
+const Membership = require("../models/Membership");
 
 module.exports.login = function (req, res) {
     let username = req.body.username;
@@ -37,7 +38,7 @@ module.exports.login = function (req, res) {
                         res.status(200).json({
                             isError: false,
                             data: {
-                                user: user,
+                                user: entry,
                                 token: token
                             }
                         })
@@ -69,12 +70,19 @@ module.exports.login = function (req, res) {
                                     token: token
                                 });
 
-                                console.log(session);
-                                console.log(user);
-
-                                session.save(function (err) {
+                                session.save(async function (err) {
                                     if (err) return HandlersService.sendError(res, 500, err);
+                                    
+                                    let memberships = await Membership.find({username: user.username}).exec();
 
+                                    if (memberships.length > 0) {
+                                        await Membership.update({username: user.username}, {
+                                            user: user._id
+                                        }, {multi: true}, function (err) {
+                                            if (err) throw err;
+                                        });
+                                    }
+                                    
                                     // todo: Add virtual properties to returned user object
                                     res.status(200).json({
                                         isError: false,
@@ -91,6 +99,6 @@ module.exports.login = function (req, res) {
             }
         })
     } else {
-        return HandlersService.sendError(400, constants.RESPONSE.MISSING_DATA);
+        return HandlersService.sendError(res, 400, constants.RESPONSE.MISSING_DATA);
     }
 }

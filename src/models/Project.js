@@ -4,23 +4,23 @@ const constants = require("../constants");
 
 const ProjectSchema = new Schema({
     group: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Group",
-        required: true
+        required: false
     },
     consultant: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
     },
     opponent: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: false
     },
     title: {
         type: String,
-        required: true``
+        required: true
     },
     createdAt: {
         type: Date,

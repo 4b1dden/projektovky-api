@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const constants = require("../constants");
 const Membership = require("../models/Membership");
+const GP_R = require('../models/GroupProjectRelation');
 
 const GroupSchema = new Schema({
     name: {
@@ -40,5 +41,11 @@ GroupSchema.virtual("memberships").get(function () {
         return memberships
     });
 });
+
+GroupSchema.virtual("relations").get(function () {
+    GP_R.find({group: this._id}).lean().exec((err, relations) => {
+        return relations
+    })
+})
 
 module.exports = mongoose.model("Group", GroupSchema)

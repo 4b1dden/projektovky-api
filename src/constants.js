@@ -9,7 +9,8 @@ module.exports = {
             GROUPS: "groups",
             USERS: "users",
             SESSIONS: "sessions",
-            MEMBERSHIPS: "memberships"
+            MEMBERSHIPS: "memberships",
+            GROUP_PROJECT_RELATION: "gp_relation"
         }
     },
     JWT: {
@@ -42,13 +43,20 @@ module.exports = {
         ACCOUNT_NOT_FOUND: "ACCOUNT_NOT_FOUND",
         EMAIL_NOT_FOUND: "EMAIL_NOT_FOUND",
         NO_TOKEN_PROVIDED: "NO_TOKEN_PROVIDED",
-        INCORRECT_RESET_CODE: "INCORRECT_RESET_CODE"
+        INCORRECT_RESET_CODE: "INCORRECT_RESET_CODE",
+        INPUT_WAS_NOT_ARRAY: "INPUT_WAS_NOT_ARRAY",
+        INSUFFICIENT_PERMISSIONS: "INSUFFICIENT_PERMISSIONS"
     },
-    GROUP_STATES: {
+    MEMBERSHIP_STATES: {
         INVITE_DECLINED: -1,
         LEFT: 0,
         PENDING_INVITE: 1,
         ACCEPTED: 2
+    },
+    GROUP_PROJECT_RELATION_STATES: {
+        INVITE_DECLINED: -1,
+        PENDING_INVITE: 1,
+        ACCEPTED: 2        
     },
     SSH: {
         TIMEOUT_LIMIT: 3000,

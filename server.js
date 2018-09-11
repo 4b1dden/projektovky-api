@@ -29,10 +29,14 @@ app.use(bodyParser.json());
 // requiring routers
 const authRouter = require("./src/routers/AuthRouter");
 const userRouter = require('./src/routers/UserRouter');
+const groupRouter = require('./src/routers/GroupRouter');
+const projectRouter = require('./src/routers/ProjectRouter');
 
 // wiring up routers
 app.use(constants.SERVER.REQ_URL_PREFIX + "/auth", authRouter);
 app.use(constants.SERVER.REQ_URL_PREFIX + "/user", userRouter);
+app.use(constants.SERVER.REQ_URL_PREFIX + "/group", groupRouter);
+app.use(constants.SERVER.REQ_URL_PREFIX + "/project", projectRouter);
 
 // keep last - handles 404s
 app.use(function(req, res) {
